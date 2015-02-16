@@ -13,6 +13,7 @@ class Chef
       action :create do
         include_recipe 'apt'
 
+        node.normal['percona']['version'] = '5.6'
         node.normal['percona']['server']['role'] = 'cluster'
         node.normal['percona']['server']['root_password'] = new_resource.root_password
         node.normal['percona']['server']['debian_password'] = new_resource.debian_password
@@ -25,6 +26,7 @@ class Chef
         Chef::Log.info "Using Percona XtraDB cluster address of: #{new_resource.cluster_address}"
         node.override['percona']['cluster']['wsrep_cluster_address'] = new_resource.cluster_address
         node.override['percona']['cluster']['wsrep_node_name'] = node['hostname']
+        node.normal['percona']['cluster']['package'] = 'percona-xtradb-cluster-56'
 
         include_recipe 'percona::cluster'
         include_recipe 'percona::backup'
