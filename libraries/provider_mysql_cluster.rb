@@ -16,7 +16,9 @@ class Chef
         node.normal['percona']['server']['role'] = 'cluster'
         node.normal['percona']['server']['root_password'] = new_resource.root_password
         node.normal['percona']['server']['debian_password'] = new_resource.debian_password
-        node.normal['percona']['server']['bind_address'] = new_resource.node_ip
+        unless node['percona']['server']['bind_address']
+          node.normal['percona']['server']['bind_address'] = new_resource.node_ip
+        end
         node.normal['percona']['cluster']['wsrep_cluster_name'] = new_resource.cluster_name
         node.normal['percona']['cluster']['wsrep_sst_receive_interface'] = new_resource.bind_interface
 
