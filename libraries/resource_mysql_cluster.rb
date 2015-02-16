@@ -14,6 +14,9 @@ class Chef
       attribute :debian_password, kind_of: String, required: true
 
       def node_ip
+        if node['consul']['bind_addr']
+          return node['consul']['bind_addr']
+        end
         node['network']['interfaces']["#{bind_interface}"]['addresses']
           .detect{|k,v| v['family'] == 'inet'}
           .first
