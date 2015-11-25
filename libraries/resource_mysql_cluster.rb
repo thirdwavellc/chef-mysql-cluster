@@ -32,6 +32,7 @@ class Chef
       attribute :bind_interface, kind_of: String, required: true
       attribute :root_password, kind_of: String, required: true
       attribute :debian_password, kind_of: String, required: true
+      attribute :bootstrapping, equal_to: [true, false], default: false
 
       def node_ip
         if node['consul']['bind_addr']
@@ -43,6 +44,7 @@ class Chef
       end
 
       def cluster_ips
+        return node_ips unless bootstrapping
         ips = []
 
         node_ips.each do |ip|
