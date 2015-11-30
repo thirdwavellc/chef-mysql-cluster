@@ -15,6 +15,7 @@ doesn't include any recipes. Here is an overview of the LWRP provided:
 **Attributes**
 
 | Name            | Description                                      | Type    | Required | Default |
+| --------------- | ------------------------------------------------ | ------- | -------- | ------- |
 | cluster_name    | Name of the db cluster                           | String  | true     | N/A     |
 | node_ips        | Array of db nodes that make up the cluster       | Array   | true     | N/A     |
 | bind_interface  | Interface to bind the db server to               | String  | true     | N/A     |
