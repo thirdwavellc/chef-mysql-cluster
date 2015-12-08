@@ -29,26 +29,18 @@ class Chef
 
       attribute :cluster_name, kind_of: String, name_attribute: true
       attribute :node_ips, kind_of: Array, required: true
+      attribute :bind_address, kind_of: String, required: true
       attribute :bind_interface, kind_of: String, required: true
       attribute :root_password, kind_of: String, required: true
       attribute :debian_password, kind_of: String, required: true
       attribute :bootstrapping, equal_to: [true, false], default: false
-
-      def node_ip
-        if node['consul']['bind_addr']
-          return node['consul']['bind_addr']
-        end
-        node['network']['interfaces']["#{bind_interface}"]['addresses']
-          .detect{|k,v| v['family'] == 'inet'}
-          .first
-      end
 
       def cluster_ips
         return node_ips unless bootstrapping
         ips = []
 
         node_ips.each do |ip|
-          break if ip == node_ip
+          break if ip == bind_address
           ips << ip
         end
 
