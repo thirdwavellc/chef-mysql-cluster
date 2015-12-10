@@ -37,11 +37,10 @@ class Chef
         node.normal['percona']['server']['role'] = 'cluster'
         node.normal['percona']['server']['root_password'] = new_resource.root_password
         node.normal['percona']['server']['debian_password'] = new_resource.debian_password
-        unless node['percona']['server']['bind_address']
-          node.normal['percona']['server']['bind_address'] = new_resource.node_ip
-        end
+        node.normal['percona']['server']['bind_address'] = new_resource.bind_address
         node.normal['percona']['cluster']['wsrep_cluster_name'] = new_resource.cluster_name
-        node.normal['percona']['cluster']['wsrep_sst_receive_interface'] = new_resource.bind_interface
+        node.normal['percona']['cluster']['wsrep_sst_receive_interface'] =
+          new_resource.bind_interface
 
         Chef::Log.info "Using Percona XtraDB cluster address of: #{new_resource.cluster_address}"
         node.override['percona']['cluster']['wsrep_cluster_address'] = new_resource.cluster_address
@@ -51,6 +50,15 @@ class Chef
         include_recipe 'percona::cluster'
         include_recipe 'percona::backup'
         include_recipe 'percona::toolkit'
+
+        if new_resource.enable_myisam_replication
+          template '/etc/mysql/conf.d/wsrep_replicate_myisam.cnf' do
+            cookbook 'mysql-cluster'
+            source 'wsrep_replicate_myisam.cnf.erb'
+            action :create_if_missing
+            notifies :restart, 'service[mysql]', :delayed
+          end
+        end
       end
     end
   end
