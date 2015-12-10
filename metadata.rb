@@ -4,7 +4,7 @@ maintainer_email 'adam.krone@thirdwavellc.com'
 license          'Apache v2.0'
 description      'Installs/Configures mysql-cluster'
 long_description 'Installs/Configures mysql-cluster'
-version          '0.1.0'
+version          '0.2.0'
 
 depends 'apt'
 depends 'percona'
