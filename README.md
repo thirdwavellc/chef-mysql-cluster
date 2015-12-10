@@ -14,15 +14,16 @@ doesn't include any recipes. Here is an overview of the LWRP provided:
 
 **Attributes**
 
-| Name            | Description                                      | Type    | Required | Default |
-| --------------- | ------------------------------------------------ | ------- | -------- | ------- |
-| cluster_name    | Name of the db cluster                           | String  | true     | N/A     |
-| node_ips        | Array of db nodes that make up the cluster       | Array   | true     | N/A     |
-| bind_address    | Address to bind db to.                           | String  | true     | N/A     |
-| bind_interface  | Interface to bind the db server to               | String  | true     | N/A     |
-| root_password   | Root password for the db                         | String  | true     | N/A     |
-| debian_password | Debian password for the db                       | String  | true     | N/A     |
-| bootstrapping   | Whether or not to treat the run as bootstrapping | Boolean | false    | false   |
+| Name                      | Description                                      | Type    | Required | Default |
+| ------------------------- | ------------------------------------------------ | ------- | -------- | ------- |
+| cluster_name              | Name of the db cluster                           | String  | true     | N/A     |
+| node_ips                  | Array of db nodes that make up the cluster       | Array   | true     | N/A     |
+| bind_address              | Address to bind db to.                           | String  | true     | N/A     |
+| bind_interface            | Interface to bind the db server to               | String  | true     | N/A     |
+| root_password             | Root password for the db                         | String  | true     | N/A     |
+| debian_password           | Debian password for the db                       | String  | true     | N/A     |
+| bootstrapping             | Whether or not to treat the run as bootstrapping | Boolean | false    | false   |
+| enable_myisam_replication | Whether or not to replicate MyISAM tables        | Boolean | false    | true    |
 
 **Example:**
 

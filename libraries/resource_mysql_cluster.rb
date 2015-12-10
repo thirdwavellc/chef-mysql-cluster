@@ -34,6 +34,7 @@ class Chef
       attribute :root_password, kind_of: String, required: true
       attribute :debian_password, kind_of: String, required: true
       attribute :bootstrapping, equal_to: [true, false], default: false
+      attribute :enable_myisam_replication, equal_to: [true, false], default: true
 
       def cluster_ips
         return node_ips unless bootstrapping

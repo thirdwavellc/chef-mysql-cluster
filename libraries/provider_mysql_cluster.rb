@@ -50,6 +50,15 @@ class Chef
         include_recipe 'percona::cluster'
         include_recipe 'percona::backup'
         include_recipe 'percona::toolkit'
+
+        if new_resource.enable_myisam_replication
+          template '/etc/mysql/conf.d/wsrep_replicate_myisam.cnf' do
+            cookbook 'mysql-cluster'
+            source 'wsrep_replicate_myisam.cnf.erb'
+            action :create_if_missing
+            notifies :restart, 'service[mysql]', :delayed
+          end
+        end
       end
     end
   end
