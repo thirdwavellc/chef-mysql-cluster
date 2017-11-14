@@ -25,6 +25,7 @@ class Chef
     class MysqlCluster < Chef::Provider::LWRPBase
       include Chef::DSL::IncludeRecipe
       use_inline_resources if defined?(use_inline_resources)
+      provides :mysql_cluster
 
       def whyrun_supported?
         true
